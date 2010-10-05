@@ -72,11 +72,14 @@ class Customers extends Person_controller
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('customers_successful_adding').' '.
 				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$customer_data['person_id']));
+				postToQuickbooks('customer_add', array('customer' => array_merge($person_data, $customer_data)));
+				
 			}
 			else //previous customer
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('customers_successful_updating').' '.
 				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$customer_id));
+				postToQuickbooks('customer_update', array('customer' => array_merge($person_data, $customer_data, array('person_id'=>$customer_id))));
 			}
 		}
 		else//failure
@@ -97,6 +100,7 @@ class Customers extends Person_controller
 		{
 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('customers_successful_deleted').' '.
 			count($customers_to_delete).' '.$this->lang->line('customers_one_or_multiple')));
+			postToQuickbooks('customer_delete', array('ids' => $customers_to_delete));
 		}
 		else
 		{
