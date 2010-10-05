@@ -8,12 +8,20 @@ function postToQuickbooks($action, $data)
 	$ch = curl_init();
 	
 	//set the url, number of POST vars, POST data
-	curl_setopt($ch,CURLOPT_URL,'http://localhost/post.php');
+	curl_setopt($ch,CURLOPT_URL,'https://secure.consolibyte.com/saas/installs/153/phppos/qbus/173/public/phppos/phppos.php');
 	curl_setopt($ch,CURLOPT_POST,1);
 	curl_setopt($ch,CURLOPT_POSTFIELDS,'data='.urlencode(json_encode($data)));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HEADER, 1);
 	
-	//execute post
-	$result = curl_exec($ch);
+	curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+	
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
+	$response = curl_exec($ch);
+	curl_close($ch);
+	
+	var_dump($response);
 }
 ?>
