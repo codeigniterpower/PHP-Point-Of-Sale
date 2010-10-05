@@ -240,6 +240,25 @@ echo form_open('config/save/',array('id'=>'config_form'));
 	</div>
 </div>
 
+<div class="field_row clearfix">	
+<?php echo form_label($this->lang->line('config_quickbooks_url').':', 'quickbooks_url',array('class'=>'wide')); ?>
+	<div class='form_field'>
+	<?php echo form_input(array(
+		'name'=>'quickbooks_url',
+		'id'=>'quickbooks_url',
+		'value'=>$this->config->item('quickbooks_url')));?>
+	</div>
+</div>
+
+<div class="field_row clearfix">	
+<?php echo form_label($this->lang->line('config_quickbooks_secret_key').':', 'quickbooks_secret_key',array('class'=>'wide')); ?>
+	<div class='form_field'>
+	<?php echo form_input(array(
+		'name'=>'quickbooks_secret_key',
+		'id'=>'quickbooks_secret_key',
+		'value'=>$this->config->item('quickbooks_secret_key')));?>
+	</div>
+</div>
 
 <?php 
 echo form_submit(array(
@@ -250,6 +269,8 @@ echo form_submit(array(
 );
 ?>
 </fieldset>
+
+
 </div>
 <?php
 echo form_close();

@@ -20,4 +20,7 @@ $lang['config_return_policy_required']='Return policy is a required field';
 $lang['config_printe_after_sale']='Print receipt after sale';
 $lang['config_language'] = 'Language';
 $lang['config_timezone'] = 'Timezone';
+$lang['config_quickbooks_integration'] = 'Quickbooks Integration';
+$lang['config_quickbooks_url'] = 'Quickbooks URL';
+$lang['config_quickbooks_secret_key'] = 'Quickbooks Key';
 ?>
