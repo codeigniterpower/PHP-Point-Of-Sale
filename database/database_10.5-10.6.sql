@@ -66,3 +66,8 @@ INSERT INTO `phppos_permissions` (
 VALUES (
 'receivings', '1'
 );
+
+ALTER TABLE `phppos_items` ADD `deleted` INT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `phppos_customers` ADD `deleted` INT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `phppos_suppliers` ADD `deleted` INT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `phppos_employees` ADD `deleted` INT( 1 ) NOT NULL DEFAULT '0';
