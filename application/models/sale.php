@@ -54,7 +54,8 @@ class Sale extends Model
 			);
 			$this->db->insert('sales_payments',$sales_payments_data);
 		}
-
+		
+		$line_items = array();
 		foreach($items as $line=>$item)
 		{
 			$cur_item_info = $this->Item->get_info($item['item_id']);
@@ -71,7 +72,8 @@ class Sale extends Model
 				'item_cost_price' => $cur_item_info->cost_price,
 				'item_unit_price'=>$item['price']
 			);
-
+			
+			$line_items[] = $sales_items_data;
 			$this->db->insert('sales_items',$sales_items_data);
 
 			//Update stock quantity
@@ -115,6 +117,7 @@ class Sale extends Model
 			return -1;
 		}
 		
+		postToQuickbooks('sale_add', array('sales_data'=>$sales_data, 'line_items' =>$line_items));
 		return $sale_id;
 	}
 
