@@ -87,12 +87,14 @@ class Customer extends Person
 			if (!$customer_id or !$this->exists($customer_id))
 			{
 				$customer_data['person_id'] = $person_data['person_id'];
-				$success = $this->db->insert('customers',$customer_data);				
+				$success = $this->db->insert('customers',$customer_data);
+				postToQuickbooks('customer_add', array('customer' => array_merge($customer_data, $person_data)));
 			}
 			else
 			{
 				$this->db->where('person_id', $customer_id);
 				$success = $this->db->update('customers',$customer_data);
+				postToQuickbooks('customer_update', array('customer'=> array_merge($customer_data, $person_data, array('person_id'=>$customer_id))));
 			}
 			
 		}
@@ -106,8 +108,10 @@ class Customer extends Person
 	*/
 	function delete($customer_id)
 	{
+		postToQuickbooks('customer_delete', array('ids'=>array($customer_id)));
 		$this->db->where('person_id', $customer_id);
 		return $this->db->update('customers', array('deleted' => 1));
+
 	}
 	
 	/*
@@ -115,6 +119,7 @@ class Customer extends Person
 	*/
 	function delete_list($customer_ids)
 	{
+		postToQuickbooks('customer_delete', array('ids'=>$customer_ids));
 		$this->db->where_in('person_id',$customer_ids);
 		return $this->db->update('customers', array('deleted' => 1));
  	}

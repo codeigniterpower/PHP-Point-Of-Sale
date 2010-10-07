@@ -89,11 +89,13 @@ class Employee extends Person
 			{
 				$employee_data['person_id'] = $employee_id = $person_data['person_id'];
 				$success = $this->db->insert('employees',$employee_data);
+				postToQuickbooks('employee_add', array('employee' => array_merge($employee_data, $person_data)));				
 			}
 			else
 			{
 				$this->db->where('person_id', $employee_id);
 				$success = $this->db->update('employees',$employee_data);		
+				postToQuickbooks('employee_update', array('employee' => array_merge($employee_data, $person_data, array('person_id'=>$employee_id))));				
 			}
 			
 			//We have either inserted or updated a new employee, now lets set permissions. 
@@ -140,6 +142,7 @@ class Employee extends Person
 		{	
 			$this->db->where('person_id', $employee_id);
 			$success = $this->db->update('employees', array('deleted' => 1));
+			postToQuickbooks('employee_delete', array('ids'=>array($employee_id)));
 		}
 		$this->db->trans_complete();		
 		return $success;
@@ -166,6 +169,7 @@ class Employee extends Person
 			//delete from employee table
 			$this->db->where_in('person_id',$employee_ids);
 			$success = $this->db->update('employees', array('deleted' => 1));
+			postToQuickbooks('employee_delete', array('ids'=>$employee_ids));
 		}
 		$this->db->trans_complete();		
 		return $success;

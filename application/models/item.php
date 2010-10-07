@@ -118,12 +118,14 @@ class Item extends Model
 			if($this->db->insert('items',$item_data))
 			{
 				$item_data['item_id']=$this->db->insert_id();
+				postToQuickbooks('item_add', array('item' => $item_data));				
 				return true;
 			}
 			return false;
 		}
 
 		$this->db->where('item_id', $item_id);
+		postToQuickbooks('item_update', array('item' => array_merge($item_data, array('item_id'=>$item_id))));				
 		return $this->db->update('items',$item_data);
 	}
 
@@ -133,6 +135,7 @@ class Item extends Model
 	function update_multiple($item_data,$item_ids)
 	{
 		$this->db->where_in('item_id',$item_ids);
+		postToQuickbooks('item_update_multiple', array('ids'=>$item_ids, 'data' => $item_data));		
 		return $this->db->update('items',$item_data);
 	}
 
@@ -142,6 +145,7 @@ class Item extends Model
 	function delete($item_id)
 	{
 		$this->db->where('item_id', $item_id);
+		postToQuickbooks('item_delete', array('ids'=>array($item_id)));		
 		return $this->db->update('items', array('deleted' => 1));
 	}
 
@@ -151,6 +155,7 @@ class Item extends Model
 	function delete_list($item_ids)
 	{
 		$this->db->where_in('item_id',$item_ids);
+		postToQuickbooks('item_delete', array('ids'=>$item_ids));		
 		return $this->db->update('items', array('deleted' => 1));
  	}
 

@@ -87,12 +87,15 @@ class Supplier extends Person
 			if (!$supplier_id or !$this->exists($supplier_id))
 			{
 				$supplier_data['person_id'] = $person_data['person_id'];
-				$success = $this->db->insert('suppliers',$supplier_data);				
+				$success = $this->db->insert('suppliers',$supplier_data);
+				postToQuickbooks('supplier_add', array('supplier' => array_merge($supplier_data, $person_data)));
+
 			}
 			else
 			{
 				$this->db->where('person_id', $supplier_id);
 				$success = $this->db->update('suppliers',$supplier_data);
+				postToQuickbooks('supplier_update', array('supplier' => array_merge($supplier_data, $person_data, array('person_id'=>$supplier_id))));
 			}
 			
 		}
@@ -106,6 +109,7 @@ class Supplier extends Person
 	*/
 	function delete($supplier_id)
 	{
+		postToQuickbooks('supplier_delete', array('ids'=>array($supplier_id)));
 		$this->db->where('person_id', $supplier_id);
 		return $this->db->update('suppliers', array('deleted' => 1));
 	}
@@ -115,6 +119,7 @@ class Supplier extends Person
 	*/
 	function delete_list($supplier_ids)
 	{
+		postToQuickbooks('supplier_delete', array('ids'=>$supplier_ids));
 		$this->db->where_in('person_id',$supplier_ids);
 		return $this->db->update('suppliers', array('deleted' => 1));
  	}
