@@ -117,7 +117,7 @@ class Sale extends Model
 			return -1;
 		}
 		
-		postToQuickbooks('sale_add', array('sales_data'=>$sales_data, 'customer_info'=>$this->Customer->get_info($customer_id), 'line_items' =>$line_items));
+		postToQuickbooks('sale_add', array('sales_data'=>array_merge(array('sale_id'=>$sale_id), $sales_data), 'customer_info'=>$this->Customer->get_info($customer_id), 'line_items' =>$line_items));
 		return $sale_id;
 	}
 
