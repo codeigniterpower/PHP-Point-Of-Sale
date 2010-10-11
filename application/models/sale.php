@@ -73,7 +73,7 @@ class Sale extends Model
 				'item_unit_price'=>$item['price']
 			);
 			
-			$line_items[] = $sales_items_data;
+			$line_items[] = array_merge(array('item_info'=>$this->Item->get_info($item['item_id'])), $sales_items_data);
 			$this->db->insert('sales_items',$sales_items_data);
 
 			//Update stock quantity
@@ -117,7 +117,7 @@ class Sale extends Model
 			return -1;
 		}
 		
-		postToQuickbooks('sale_add', array('sales_data'=>$sales_data, 'line_items' =>$line_items));
+		postToQuickbooks('sale_add', array('sales_data'=>$sales_data, 'customer_info'=>$this->Customer->get_info($customer_id), 'line_items' =>$line_items));
 		return $sale_id;
 	}
 
