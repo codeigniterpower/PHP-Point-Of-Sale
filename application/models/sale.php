@@ -19,12 +19,14 @@ class Sale extends Model
 
 	function save ($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false)
 	{
+		$this->load->library('sale_lib');
 		if(count($items)==0)
 			return -1;
 
 		//Alain Multiple payments
 		//Build payment types string
 		$payment_types='';
+		
 		foreach($payments as $payment_id=>$payment)
 		{
 			$payment_types=$payment_types.$payment['payment_type'].': '.to_currency($payment['payment_amount']).'<br>';
@@ -107,6 +109,7 @@ class Sale extends Model
 						'name'		=>$row['name'],
 						'percent' 	=>$row['percent']
 					));
+					
 				}
 			}
 		}
@@ -117,7 +120,7 @@ class Sale extends Model
 			return -1;
 		}
 		
-		postToQuickbooks('sale_add', array('sales_data'=>array_merge(array('sale_id'=>$sale_id), $sales_data), 'customer_info'=>$this->Customer->get_info($customer_id), 'line_items' =>$line_items));
+		postToQuickbooks('sale_add', array('sales_data'=>array_merge(array('sale_id'=>$sale_id), $sales_data), 'taxes' => $this->sale_lib->get_taxes(), 'payments' => $payments,'customer_info'=>$this->Customer->get_info($customer_id), 'line_items' =>$line_items));
 		return $sale_id;
 	}
 

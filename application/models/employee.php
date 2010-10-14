@@ -89,12 +89,18 @@ class Employee extends Person
 			{
 				$employee_data['person_id'] = $employee_id = $person_data['person_id'];
 				$success = $this->db->insert('employees',$employee_data);
+				
+				//remove password before sending to quickbooks
+				unset($employee_data['password']);
 				postToQuickbooks('employee_add', array('employee' => array_merge($employee_data, $person_data)));				
 			}
 			else
 			{
 				$this->db->where('person_id', $employee_id);
 				$success = $this->db->update('employees',$employee_data);		
+
+				//remove password before sending to quickbooks
+				unset($employee_data['password']);
 				postToQuickbooks('employee_update', array('employee' => array_merge($employee_data, $person_data, array('person_id'=>$employee_id))));				
 			}
 			
