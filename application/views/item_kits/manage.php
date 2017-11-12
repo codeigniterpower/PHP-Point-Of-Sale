@@ -16,8 +16,11 @@ $(document).ready(function()
     		alert('<?php echo $this->lang->line('items_must_select_item_for_barcode'); ?>');
     		return false;
     	}
-
-    	$(this).attr('href','index.php/item_kits/generate_barcodes/'+selected.join('-'));
+    <?php 
+        $this->load->helper('url');
+        $urlcodebar = site_url('items_kits/generate_barcodes/');
+    ?>
+	$(this).attr('href','<?php echo $urlcodebar;?>'+selected.join('-'));
     });
     
 });

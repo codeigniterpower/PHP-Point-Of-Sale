@@ -18,7 +18,8 @@ foreach($items as $item)
 	{
 		echo '</tr><tr>';
 	}
-	echo "<td><img src='/index.php/barcode?barcode=$barcode&text=$text&width=256&height=100' /></td>";
+	$this->load->helper('url');
+	echo "<td><img src='".site_url('barcode?barcode=$barcode&text=$text&width=256&height=100')."' /></td>";
 	$count++;
 }
 ?>

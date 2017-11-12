@@ -18,8 +18,11 @@ $(document).ready(function()
     		alert('<?php echo $this->lang->line('items_must_select_item_for_barcode'); ?>');
     		return false;
     	}
-
-    	$(this).attr('href','index.php/items/generate_barcodes/'+selected.join('-'));
+    <?php 
+        $this->load->helper('url');
+        $urlcodebar = site_url('items/generate_barcodes/');
+    ?>
+    	$(this).attr('href','<?php echo $urlcodebar;?>'+selected.join('-'));
     });
 
     $("#low_inventory").click(function()

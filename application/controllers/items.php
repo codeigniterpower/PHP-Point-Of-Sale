@@ -10,7 +10,7 @@ class Items extends Secure_area implements iData_controller
 
 	function index()
 	{
-		$config['base_url'] = site_url('/items/index/');
+		$config['base_url'] = site_url('items/index/');
 		$config['total_rows'] = $this->Item->count_all();
 		$config['per_page'] = '20';
 		$config["uri_segment"] = 3;
