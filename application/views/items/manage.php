@@ -20,7 +20,7 @@ $(document).ready(function()
     	}
     <?php 
         $this->load->helper('url');
-        $urlcodebar = site_url('items/generate_barcodes/');
+        $urlcodebar = site_url('items/generate_barcodes/')."/";
     ?>
     	$(this).attr('href','<?php echo $urlcodebar;?>'+selected.join('-'));
     });
@@ -58,12 +58,12 @@ $(document).ready(function()
 		<?php echo anchor("$controller_name/view/-1", $this->lang->line($controller_name.'_new'),
 		array('class'=>'btn btn-success','title'=>$this->lang->line($controller_name.'_new')));
 		?>
-		<?php echo anchor("$controller_name/bulk_edit",$this->lang->line("items_bulk_edit"),array('class'=>'btn btn-default', 'id'=>'bulk_edit','title'=>$this->lang->line('items_edit_multiple_items'))); ?>
-		<?php echo anchor("$controller_name/generate_barcodes",$this->lang->line("items_generate_barcodes"),array('class'=>'btn btn-default','id'=>'generate_barcodes', 'target' =>'_blank','title'=>$this->lang->line('items_generate_barcodes'))); ?>
-		<?php echo anchor("$controller_name/excel_import", "Excel Import",
+		<?php echo anchor("$controller_name/bulk_edit/",$this->lang->line("items_bulk_edit"),array('class'=>'btn btn-default', 'id'=>'bulk_edit','title'=>$this->lang->line('items_edit_multiple_items'))); ?>
+		<?php echo anchor("$controller_name/generate_barcodes/",$this->lang->line("items_generate_barcodes"),array('class'=>'btn btn-default','id'=>'generate_barcodes', 'target' =>'_blank','title'=>$this->lang->line('items_generate_barcodes'))); ?>
+		<?php echo anchor("$controller_name/excel_import/", "Excel Import",
 		array('class'=>'btn btn-default','title'=>'Import Items from Excel'));
 		?>
-		<?php echo anchor("$controller_name/delete",$this->lang->line("common_delete"),array('class'=>'btn btn-danger','id'=>'delete')); ?>
+		<?php echo anchor("$controller_name/delete/",$this->lang->line("common_delete"),array('class'=>'btn btn-danger','id'=>'delete')); ?>
 	</div>
 	<br style="clear:both" />
 </div>
