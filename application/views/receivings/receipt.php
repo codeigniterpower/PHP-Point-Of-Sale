@@ -87,7 +87,7 @@ if (isset($error_message))
 	<div id='barcode'>
 	<?php
 	 //echo "<img src='index.php?c=barcode&barcode=$receiving_id&text=$receiving_id&width=250&height=50' />"; ?>
-	 $this->load->helper('url'); echo "<img src='".site_url('?c=barcode&barcode=$receiving_id&text=$receiving_id&width=250&height=50')."' />";
+	 $this->load->helper('url'); echo "<img src='".site_url('?c=barcode&barcode='.$receiving_id.'&text='.$receiving_id.'&width=250&height=50')."' />";
 	 ?>
 	</div>
 </div>
